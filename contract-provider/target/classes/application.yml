@@ -1,0 +1,30 @@
+server:
+    port: 8081
+    shutdown: graceful
+
+management:
+    endpoint:
+        env:
+            post:
+                enabled: true
+    endpoints:
+        health:
+            show-details: always
+        web:
+            exposure:
+                include: "*"
+
+spring:
+    boot:
+        admin:
+            client:
+                url: http://localhost:8080
+            routes:
+                endpoints: env, metrics, trace, jolokia, info, configprops
+    application:
+        name: contract-consumer
+
+picpay:
+    feature:
+        feedzai:
+            timeout: true

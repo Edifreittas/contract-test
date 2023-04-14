@@ -1,0 +1,90 @@
+{
+  "consumer": {
+    "name": "contract-consumer"
+  },
+  "interactions": [
+    {
+      "description": "product POST",
+      "providerStates": [
+        {
+          "name": "product POST - Success"
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "path": "/product"
+      },
+      "response": {
+        "body": {
+          "date": "14-03-2023",
+          "id": "Text",
+          "price": 10,
+          "valid": true
+        },
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "matchingRules": {
+          "body": {
+            "$.date": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "date": "dd-MM-yyyy",
+                  "match": "date"
+                }
+              ]
+            },
+            "$.id": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            },
+            "$.price": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "number"
+                }
+              ]
+            },
+            "$.valid": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ]
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "combine": "AND",
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ]
+            }
+          }
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.2.7"
+    },
+    "pactSpecification": {
+      "version": "3.0.0"
+    }
+  },
+  "provider": {
+    "name": "contract-provider"
+  }
+}
